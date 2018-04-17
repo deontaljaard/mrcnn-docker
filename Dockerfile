@@ -27,16 +27,16 @@ RUN cd $TEMP_COCO_DIR/PythonAPI && \
     sed -i "s/\bpython\b/python3/g" Makefile && \
     make
 
-RUN mkdir -p $MRCNN_DIR
+RUN mkdir -p $MRCNN_DIR/coco
 
-RUN wget -O $MRCNN_DIR/mask_rcnn_coco.h5 https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5
+RUN wget -O $MRCNN_DIR/coco/mask_rcnn_coco.h5 https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5
 
 RUN wget -O $MRCNN_DIR/instances_minival2014.json.zip https://dl.dropboxusercontent.com/s/o43o90bna78omob/instances_minival2014.json.zip?dl=0 && \
-    unzip $MRCNN_DIR/instances_minival2014.json.zip -d $MRCNN_DIR/ && \
+    unzip $MRCNN_DIR/instances_minival2014.json.zip -d $MRCNN_DIR/coco/annotations && \
     rm -rf $MRCNN_DIR/instances_minival2014.json.zip
     
 RUN wget -O $MRCNN_DIR/instances_valminusminival2014.json.zip https://dl.dropboxusercontent.com/s/s3tw5zcg7395368/instances_valminusminival2014.json.zip?dl=0 && \
-    unzip $MRCNN_DIR/instances_valminusminival2014.json.zip -d $MRCNN_DIR/ && \
+    unzip $MRCNN_DIR/instances_valminusminival2014.json.zip -d $MRCNN_DIR/coco/annotations && \
     rm -rf $MRCNN_DIR/instances_valminusminival2014.json.zip
 
 WORKDIR "/root"
